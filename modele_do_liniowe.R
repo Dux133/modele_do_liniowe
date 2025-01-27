@@ -72,3 +72,25 @@ b2 <- model_mieszany$coefficients[2]
 ggplot(mtcars, aes(x = wt, y = log(mpg)))+
   geom_point()+
   geom_smooth(method = "lm", formula = y ~ poly(x,2), color = "blue")
+
+# 4. Model potęgowo-wykładniczy – estymacja parametrów --------------------
+
+# Dopasowanie nieliniowego modelu
+model_nls <- nls(mpg ~ a * wt^b*exp(c*wt), # Estymujemy parametry a,b,c
+                 data = mtcars,
+                 start = list(a = 1, b = -1, c = 0))
+summary(model_nls)
+
+# wyciągamy oszacowane współczynniki
+parametry <- coef(model_nls)
+a3 <- parametry["a"]
+b3 <- parametry["b"]
+c  <- parametry["c"]
+
+# Predykcja na podstawie dopasowanego modelu
+y3 <- a3*mtcars$wt^b*exp(c*mtcars$wt)
+# Wizualizacja
+plot(mtcars$wt, mtcars$mpg, pch = 20, col = "black")
+points(mtcars$wt, y1, pch = 20, col = 2)
+points(mtcars$wt, y, pch = 20, col = 4)
+points(mtcars$wt, y3, pch = 20, col = 6)
