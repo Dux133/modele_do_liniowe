@@ -89,7 +89,7 @@ c  <- parametry["c"]
 
 # Predykcja na podstawie dopasowanego modelu
 y3 <- a3*mtcars$wt^b*exp(c*mtcars$wt)
-# Wizualizacja
+# Wizualizacja modeli
 plot(mtcars$wt, mtcars$mpg, pch = 20, col = "black")
 points(mtcars$wt, y1, pch = 20, col = 2)
 points(mtcars$wt, y, pch = 20, col = 4)
